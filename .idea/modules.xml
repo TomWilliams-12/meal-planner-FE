@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/meal-planner.iml" filepath="$PROJECT_DIR$/.idea/meal-planner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../react-task-tracker/.idea/react-task-tracker.iml" filepath="$PROJECT_DIR$/../react-task-tracker/.idea/react-task-tracker.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,16 @@
+{
+  "cards": [
+    {
+      "id": 1,
+      "title": "Meals",
+      "image": "nothing",
+      "linkName": "meals"
+    },
+    {
+      "id": 2,
+      "title": "Weekly Plan",
+      "image": "nothing",
+      "linkName": "wp"
+    }
+  ]
+}
