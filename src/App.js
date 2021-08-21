@@ -9,6 +9,22 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 const App = () => {
     const [cards, setCards] = useState([])
+    const [meals, setMeals] = useState([])
+    const [showAddMeal, setShowAddMeal] = useState(false)
+
+    // ADD Meal
+    const addMeal = async (meal) => {
+        const res = await fetch('http://localhost:5000/meals', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(meal)
+        })
+
+        const data = await res.json()
+        setMeals([...meals, data])
+    }
 
     useEffect(() => {
         const getCards = async () => {
@@ -30,10 +46,13 @@ const App = () => {
 
     return (
         <Router>
-            <Header />
-            <Route path='/' exact render={() => ( <Cards cards={cards} /> )} />
-            <Route path='/meals' exact render={() => ( <Meals /> )} />
-            <Route path='/wp' exact render={() => ( <WeeklyPlan /> )} />
+            <div className='md:container md:mx-auto' >
+                <Header />
+                <Route path='/' exact render={() => ( <Cards cards={cards} /> )} />
+                <Route path='/meals' exact render={() => ( <Meals addMeal={addMeal}
+                                                                  onAdd={() => setShowAddMeal(!showAddMeal)} showAdd={showAddMeal}/> )} />
+                <Route path='/wp' exact render={() => ( <WeeklyPlan /> )} />
+            </div>
         </Router>
     );
 };

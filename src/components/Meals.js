@@ -1,7 +1,16 @@
-const Meals = () => {
+import Button from './Button'
+import AddMeal from './AddMeal'
+
+const Meals = ({ addMeal, onAdd, showAdd }) => {
+
+
     return (
         <div>
-            <h1>This is the meals page</h1>
+            <input type='text' label='filter' placeholder='filter' />
+            <Button text='Add Meal' onClick={onAdd}  />
+            {showAdd && <AddMeal />}
+
+            {/* TODO list all meals in database */}
         </div>
     );
 };
