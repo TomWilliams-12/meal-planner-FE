@@ -14,7 +14,7 @@ const App = () => {
 
     // ADD Meal
     const addMeal = async (meal) => {
-        const res = await fetch('http://localhost:5000/meals', {
+        const res = await fetch('http://localhost:8000/meals', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -25,6 +25,23 @@ const App = () => {
         const data = await res.json()
         setMeals([...meals, data])
     }
+
+    // GET MEALS FROM SERVER
+    const fetchMeals = async () => {
+        const res = await fetch('http://localhost:8000/meals')
+        const data = await res.json()
+
+        return data
+    }
+
+    useEffect(() => {
+        const getMeals = async () => {
+            const mealsFromServer = await fetchMeals()
+            setMeals(mealsFromServer)
+        }
+        getMeals()
+    }, [])
+
 
     useEffect(() => {
         const getCards = async () => {
@@ -50,7 +67,9 @@ const App = () => {
                 <Header />
                 <Route path='/' exact render={() => ( <Cards cards={cards} /> )} />
                 <Route path='/meals' exact render={() => ( <Meals addMeal={addMeal}
-                                                                  onAdd={() => setShowAddMeal(!showAddMeal)} showAdd={showAddMeal}/> )} />
+                                                                  onAdd={() => setShowAddMeal(!showAddMeal)}
+                                                                  showAdd={showAddMeal}
+                                                                  meals={meals}/> )} />
                 <Route path='/wp' exact render={() => ( <WeeklyPlan /> )} />
             </div>
         </Router>

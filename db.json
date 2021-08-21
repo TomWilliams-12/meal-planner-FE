@@ -14,5 +14,32 @@
     }
   ],
   "meals": [
+    {
+      "id": 1,
+      "name": "Chilli Chicken",
+      "ingredients": "Chilli, Chicken",
+      "category": "Spicy",
+      "country": "Mexican",
+      "link": "test",
+      "healthy": true
+    },
+    {
+      "name": "Big Mac",
+      "ingredients": "Burger",
+      "category": "Fast Food",
+      "country": "U.S",
+      "link": "test",
+      "healthy": true,
+      "id": 2
+    },
+    {
+      "name": "Nuggets",
+      "ingredients": "Chicken, Breadcumbs",
+      "category": "Fried Food",
+      "country": "UK",
+      "link": "",
+      "healthy": "",
+      "id": 3
+    }
   ]
 }

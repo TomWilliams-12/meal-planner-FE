@@ -1,17 +1,30 @@
 import { useState } from "react";
 
-const AddMeal = () => {
+const AddMeal = ({ addMeal }) => {
     // SET STATE VARIABLES
     const [name, setName] = useState('')
     const [ingredients, setIngredients] = useState('')
     const [category, setCategory] = useState('')
     const [country, setCountry] = useState('')
     const [link, setLink] = useState('')
-    const [healthy, setHealthy] = useState('')
+    const [healthy, setHealthy] = useState(false)
 
 
     const onSubmit = (e) => {
+        e.preventDefault()
 
+        if(!name) {
+            alert("please add a meal")
+        }
+
+        addMeal({ name, ingredients, category, country, link, healthy })
+
+        setName('')
+        setIngredients('')
+        setCategory('')
+        setCountry('')
+        setLink('')
+        setHealthy(false)
     }
 
     return (
@@ -23,7 +36,7 @@ const AddMeal = () => {
             </div>
             <div className='form-control'>
                 <label>Ingredients</label>
-                <textarea placeholder='Ingredients' for='ingredients'
+                <textarea placeholder='Ingredients' htmlFor='ingredients'
                        value={ingredients} onChange={(e) => setIngredients(e.target.value)}>
                 </textarea>
             </div>
