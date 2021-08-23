@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 const App = () => {
     const [cards, setCards] = useState([])
     const [meals, setMeals] = useState([])
+    const [wp, setWp] = useState([])
     const [showAddMeal, setShowAddMeal] = useState(false)
 
     // ADD Meal
@@ -26,13 +27,19 @@ const App = () => {
         setMeals([...meals, data])
     }
 
-    // GET MEALS FROM SERVER
-    const fetchMeals = async () => {
-        const res = await fetch('http://localhost:8000/meals')
+    // ADD MEAL TO WEEKLY PLAN
+    const addMealToWp = async (meal) => {
+        const res = await fetch('http://localhost:8000/wp', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(meal)
+            })
         const data = await res.json()
-
-        return data
+        setWp( [...wp, data])
     }
+
 
     useEffect(() => {
         const getMeals = async () => {
@@ -51,10 +58,32 @@ const App = () => {
         getCards()
     }, [])
 
+    useEffect(() => {
+        const getWeeklyPlan = async () => {
+            const planFromServer = await fetchWeeklyPlan()
+            setWp(planFromServer)
+        }
+        getWeeklyPlan()
+    }, [])
+
+    // GET MEALS FROM SERVER
+    const fetchMeals = async () => {
+        const res = await fetch('http://localhost:8000/meals')
+        const data = await res.json()
+
+        return data
+    }
 
     // Fetch Cards FROM API
     const fetchCards = async () => {
         const res = await fetch('http://localhost:8000/cards')
+        const data = await res.json()
+
+        return data
+    }
+
+    const fetchWeeklyPlan = async () => {
+        const res = await fetch('http://localhost:8000/wp')
         const data = await res.json()
 
         return data
@@ -69,8 +98,9 @@ const App = () => {
                 <Route path='/meals' exact render={() => ( <Meals addMeal={addMeal}
                                                                   onAdd={() => setShowAddMeal(!showAddMeal)}
                                                                   showAdd={showAddMeal}
-                                                                  meals={meals}/> )} />
-                <Route path='/wp' exact render={() => ( <WeeklyPlan /> )} />
+                                                                  meals={meals}
+                                                                  addMealToWp={addMealToWp} /> )} />
+                <Route path='/wp' exact render={() => ( <WeeklyPlan weeklyPlan={wp} /> )} />
             </div>
         </Router>
     );

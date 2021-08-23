@@ -2,8 +2,7 @@ import Button from './Button'
 import AddMeal from './AddMeal'
 import Meal from "./Meal"
 
-const Meals = ({ addMeal, onAdd, showAdd, meals }) => {
-
+const Meals = ({ addMeal, onAdd, showAdd, meals, addMealToWp }) => {
 
     return (
         <div>
@@ -13,7 +12,7 @@ const Meals = ({ addMeal, onAdd, showAdd, meals }) => {
 
 
             {meals.map((meal) => (
-                <Meal key={meal.id} meal={meal} />
+                <Meal key={meal.id} meal={meal} addMealToWp={addMealToWp} />
             ))}
         </div>
     );
